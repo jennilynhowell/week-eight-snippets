@@ -24,11 +24,28 @@ module.exports = {
     });
   },
 
-
   //SNIPS
-  createSnip: (req, res) => {},
-  viewSnips: (req, res) => {},
-  viewOneSnip: (req, res) => {},
+  createSnip: (req, res) => {
+    let newSnip = new Snip(req.body);
+    newSnip.save().then(snip => {
+      res.status(201).json({data: snip});
+    });
+  },
+
+  viewSnips: (req, res) => {
+    Snip.find().then(snips => {
+      res.status(302).json({data: snips});
+    });
+  },
+
+  viewOneSnip: (req, res) => {
+    let id = req.body._id;
+    Snip.findById(id).then(snip => {
+      res.status(302).json({data: snip});
+    });
+  },
+
   viewSnipsByLang: (req, res) => {},
+
   viewSnipsByTag: (req, res) => {}
 };

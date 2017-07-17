@@ -5,6 +5,84 @@ const User = require('../models/user');
 const Snip = require('../models/snippet');
 const createPasswordObject = require('../controllers/helpers').createPasswordObject;
 
+describe('API Snip endpoint tests', () => {
+  //before & after
+  beforeEach((done) => {
+    let snipOne = new Snip({
+      userId: "54cd6669d3e0fb1b302e55e6",
+      title: 'snipOne',
+      body: '<h1> Hello World </h1>',
+      language: 'HTML',
+      tags: ['HelloWorld', 'HTML'],
+      notes: ['My first HTML snippet', 'How cool is HTML!']
+    });
+    let snipTwo = new Snip({
+      userId: "54cd6669d3e0fb1b302e56f7",
+      title: 'snipTwo',
+      body: 'let cool = true;',
+      language: 'JS',
+      tags: ['JavaScript'],
+      notes: ['My first JS snippet', 'How cool is JavaScript!']
+    });
+    Snip.insertMany([snipOne, snipTwo]).then(done());
+  });
+
+  afterEach((done) => {
+    Snip.deleteMany({}).then(done());
+  });
+
+  //createSnip
+  it('can create snip at POST /API/snip/create', (done) => {
+    let createSnip = new Snip ({
+      userId: "54cd6669d3e0fb1b302e57g8",
+      title: 'gettin snippy',
+      body: 'let pizza = "delicious";',
+      language: 'JS',
+      tags: ['JavaScript', 'pizza'],
+      notes: ['My second JS snippet']
+    });
+    request(app)
+      .post('/api/snip/create')
+      .send(createSnip)
+      .expect(res => {
+        expect(201);
+        expect(res.body.data.title).to.equal('gettin snippy');
+      }).end(done);
+  });
+
+  //view all snips
+  it('can view all snips at GET /API/snip/viewAll', (done) => {
+    request(app)
+      .get('/api/snip/viewAll')
+      .expect(302)
+      .expect(res => {
+        expect(res.body.data[0].title).to.equal('snipOne');
+      }).end(done);
+  });
+
+  //view one snip
+  it('can view one snip at POST /API/snip/viewOne', (done) => {
+    let createSnip = new Snip({
+      userId: "54cd7779d3e0fb1b302e57g8",
+      title: 'oh snip',
+      body: 'let pizza = "delicious";',
+      language: 'JS',
+      tags: ['JavaScript', 'pizza'],
+      notes: ['My second JS snippet']
+    });
+    createSnip.save().then(() => {
+      request(app)
+        .post('/api/snip/viewOne')
+        .send({_id: createSnip._id})
+        .expect(res => {
+          expect(302);
+          expect(res.body.data.language).to.equal('CSS');
+        }).end(done);
+    });
+  });
+
+});
+
 describe('API User endpoint tests', () => {
   //before & after
   beforeEach((done) => {
