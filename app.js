@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const mustache = require('mustache-express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
 const session = require('express-session');
@@ -47,6 +49,8 @@ app.use(validator());
 //   }
 //
 // });
+module.exports = app;
+
 routes(app);
 
 app.listen(3000);

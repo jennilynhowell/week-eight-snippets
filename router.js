@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const models = require('./models');
-const appController = require('./controllers/appControllers.js');
-const apiController = require('./controllers/apiControllers.js');
+const appControllers = require('./controllers/appControllers.js');
+const apiControllers = require('./controllers/apiControllers.js');
 
 module.exports = (app) => {
+  const apiRouter = express.Router();
+  const appRouter = express.Router();
   //api endpoints
   apiRouter.post('/snip/create', apiControllers.createSnip);
   apiRouter.post('/user/create', apiControllers.createUser);
@@ -12,8 +13,8 @@ module.exports = (app) => {
   apiRouter.get('/snip/viewAll', apiControllers.viewSnips);
   apiRouter.get('/user/viewAll', apiControllers.viewUsers);
 
-  apiRouter.get('/snip', apiControllers.viewOneSnip);
-  apiRouter.get('/user', apiControllers.viewOneUser);
+  apiRouter.post('/snip/viewOne', apiControllers.viewOneSnip);
+  apiRouter.post('/user/viewOne', apiControllers.viewOneUser);
 
   apiRouter.post('/snip/viewByLang', apiControllers.viewSnipsByLang);
 
