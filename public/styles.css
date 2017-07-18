@@ -1,0 +1,17 @@
+body {
+  padding-top: 80px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navbar {
+  width: 100%;
+}
+
+nav {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.navbar-brand {
+  width: 70%;
+}

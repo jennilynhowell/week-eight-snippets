@@ -1,0 +1,13 @@
+<section class="container form-div">
+  <h3>Sign in to CodeTrapper!</h3>
+  {{#message}}
+  <p class="bg-warning">{{message}}</p>
+  {{/message}}
+
+  <form class="form-group" action="/user/signup" method="POST">
+    <input class="form-control" type="text" name="username" value="" placeholder="Username">
+    <input class="form-control" type="password" name="password" value="" placeholder="Password">
+    <input class="form-control btn btn-primary" type="submit" name="signup" value="Sign in!">
+  </form>
+  <h5>I'd like to be a CodeTrapper, too! Take me to the <a href="app/user/signup">Sign up page!</a></h5>
+</section>

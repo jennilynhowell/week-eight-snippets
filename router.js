@@ -6,6 +6,11 @@ const apiControllers = require('./controllers/apiControllers.js');
 module.exports = (app) => {
   const apiRouter = express.Router();
   const appRouter = express.Router();
+
+  app.get('/', (req, res) => {
+    res.redirect('/app/user/signup');
+  });
+
   //api endpoints
   apiRouter.post('/snip/create', apiControllers.createSnip);
   apiRouter.post('/user/create', apiControllers.createUser);
@@ -23,6 +28,13 @@ module.exports = (app) => {
   app.use('/api', apiRouter);
 
   //app endpoints
+  appRouter.get('/user/signup', appControllers.getSignup),
+  appRouter.post('/user/signup', appControllers.createUser);
 
-  //app.use('/app', appRouter);
+  appRouter.get('/user/login', appControllers.getLogin),
+  appRouter.post('/user/login', appControllers.login);
+
+  appRouter.get('/home', appControllers.home);
+
+  app.use('/app', appRouter);
 };
