@@ -16,9 +16,9 @@ module.exports = (app) => {
   apiRouter.post('/snip/viewOne', apiControllers.viewOneSnip);
   apiRouter.post('/user/viewOne', apiControllers.viewOneUser);
 
-  apiRouter.post('/snip/viewByLang', apiControllers.viewSnipsByLang);
+  apiRouter.get('/snip/:language', apiControllers.viewSnipsByLang);
 
-  apiRouter.post('/snip/viewByTag', apiControllers.viewSnipsByTag);
+  apiRouter.get('/snip/tag/:tag', apiControllers.viewSnipsByTag);
 
   app.use('/api', apiRouter);
 

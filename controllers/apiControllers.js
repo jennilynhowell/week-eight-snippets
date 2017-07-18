@@ -45,7 +45,18 @@ module.exports = {
     });
   },
 
-  viewSnipsByLang: (req, res) => {},
+  viewSnipsByLang: (req, res) => {
+    let language = req.params.language;
 
-  viewSnipsByTag: (req, res) => {}
+    Snip.find({language: language}).then(snips => {
+      res.status(302).json({data: snips});
+    });
+  },
+
+  viewSnipsByTag: (req, res) => {
+    let tag = req.params.tag;
+    Snip.find({tags: {$in: [tag]}}).then(snips => {
+      res.status(302).json({data: snips});
+    });
+  }
 };
