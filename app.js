@@ -15,8 +15,15 @@ const User = require('./models/user');
 const Snip = require('./models/snippet');
 
 //mongo setup
+let mongoUrl;
 const env = process.env.NODE_ENV || 'development';
-const mongoUrl = require('./config.json')[env].mongoUrl;
+
+if(env === 'production') {
+  mongoUrl = processenv.MONGODB_URI;
+} else {
+  mongoUrl = require('./config.json')[env].mongoUrl;
+}
+
 mongoose.connect(mongoUrl);
 
 //templates
@@ -53,4 +60,4 @@ module.exports = app;
 
 routes(app);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
