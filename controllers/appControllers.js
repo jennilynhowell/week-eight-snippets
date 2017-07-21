@@ -17,34 +17,47 @@ module.exports = {
     req.checkBody('password', 'Please pick a password').notEmpty();
     req.checkBody('passconf', "Oops, your passwords don't match").notEmpty().equals(req.body.password);
 
-    req.getValidationResult.then((result) => {
-      if (result) {
-        errors = result.array();
-        message = errors[0].msg;
-
-        let context = {
-          username: req.body.username,
-          message: message
-        };
-
-        res.render('signup', context);
-
-      //if no errors, create user in db
-      } else {
+    req.getValidationResult().then((result) => {
+      //if not errors, create & log in new user
+      if (result.isEmpty()) {
         let username = req.body.username
+          , firstName = req.body.firstname
           , password = req.body.password
           , newUser = new User ({
             username: username,
+            firstName: firstName,
             password: createPasswordObject(password)
           });
 
         //then create session & move to home page
         newUser.save().then(user => {
-          req.session.user = user._id;
-          req.session.name = user.username;
+          if (user.err) {
+            let context = {message: "Sorry, somethign went wrong."}
+            res.render('signup', context);
+          } else {
+            req.session._id = user._id;
+            req.session.username = user.username;
+            req.session.firstname = user.firstName;
 
-          res.redirect('/app/home');
+            res.redirect('/app/home');
+          }
+
         });
+
+
+      //if errors, alert user
+//TODO  mess with errors
+      } else {
+        errors = result.array();
+        console.log(errors);
+        // message = errors[0].msg;
+
+        let context = {
+          username: req.body.username,
+          //message: message
+        };
+
+        res.render('signup', context);
       };
     });
   },
@@ -53,20 +66,8 @@ module.exports = {
     req.checkBody('username', 'Please pick a username').notEmpty();
     req.checkBody('password', 'Please pick a password').notEmpty();
 
-    req.getValidationResult.then((result) => {
-      if (result) {
-        errors = result.array();
-        message = errors[0].msg;
-
-        let context = {
-          username: req.body.username,
-          message: message
-        };
-
-        res.render('login', context);
-
-      //if no errors, confirm user is in db
-      } else {
+    req.getValidationResult().then((result) => {
+      if (result.isEmpty()) {
         let username = req.body.username
           , password = req.body.password;
 
@@ -79,12 +80,26 @@ module.exports = {
 
           //if no database validation error, create session
           } else {
-            req.session.user = user._id;
-            req.session.name = user.username;
+            req.session._id = user._id;
+            req.session.username = user.username;
+            req.session.firstname = user.firstName;
 
             res.redirect('/app/home');
           };
         });
+
+
+      //if no errors, confirm user is in db
+      } else {
+        errors = result.array();
+        message = errors[0].msg;
+
+        let context = {
+          username: req.body.username,
+          message: message
+        };
+
+        res.render('login', context);
       };
     });
   },
@@ -93,11 +108,19 @@ module.exports = {
     let id = req.session.user;
     Snip.find({userId: id}).then(snips => {
       let context = {
+        id: req.session._id,
         user: req.session.username,
+        name: req.session.firstname,
         snips: snips
       }
       res.render('home', context);
     });
+  },
+
+  logout: (req, res) => {
+    delete req.session.user;
+    delete req.session.name;
+    res.redirect('/app/user/login');
   },
 
   //end exports

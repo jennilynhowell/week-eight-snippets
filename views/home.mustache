@@ -1,0 +1,36 @@
+<section class="container home-container">
+  <h1 class="welcome">Hey there, {{name}}!</h1>
+
+<section class="container">
+
+
+  <div class="container">
+  {{#snips}}
+  <h3>Your Snips</h3>
+  {{/snips}}
+  </div>
+
+
+  <form class="form-group" action="ADDSNIP" method="post">
+    <h3>Create a New Snip</h3>
+
+    <div class="form-group">
+      <label for="">My New Snip</label>
+      <input type="hidden" name="userId" value="{{id}}">
+      <input type="text" name="title" value="" placeholder="Title" class="form-control">
+      <textarea name="body" value="" placeholder="Body" class="form-control"></textarea>
+      <input type="text" name="language" value="" placeholder="Language" class="form-control">
+      <input type="text" name="tags" value="" placeholder="Tags" class="form-control">
+      <input type="text" name="notes" value="" placeholder="Notes" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <input type="submit" name="view" value="Create!" class="form-control btn btn-primary like-btn">
+    </div>
+
+
+  </form>
+
+
+</section>
+</section>

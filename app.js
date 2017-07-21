@@ -37,12 +37,12 @@ app.use('/static', express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
-//
-// app.use(session({
-//   secret: 'keyboard cats',
-//   resave: false,
-//   saveUninitialized: true
-// }));
+
+app.use(session({
+  secret: 'keyboard cats',
+  resave: false,
+  saveUninitialized: true
+}));
 //
 // //require user to be logged in
 // app.use(function(req, res, next){

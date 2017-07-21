@@ -36,5 +36,7 @@ module.exports = (app) => {
 
   appRouter.get('/home', appControllers.home);
 
+  appRouter.get('/user/logout', appControllers.logout);
+
   app.use('/app', appRouter);
 };
