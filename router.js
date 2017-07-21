@@ -38,6 +38,9 @@ module.exports = (app) => {
 
   appRouter.post('/addsnip', appControllers.addSnip);
 
+  appRouter.get('/editSnip/:_id', appControllers.editSnip);
+  appRouter.post('/editSnip/:_id', appControllers.postSnipEdit);
+
   appRouter.get('/user/logout', appControllers.logout);
 
   app.use('/app', appRouter);

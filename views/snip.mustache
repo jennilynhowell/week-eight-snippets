@@ -1,0 +1,33 @@
+<section class="container">
+  <h3>Edit Your Snip</h3>
+  {{#snip}}
+  <ul class="list-unstyled">
+    <li><h3 class="">{{title}}</h4></li>
+      <li>{{body}}</li>
+      <li>Language: {{language}}</li>
+      <li>
+        <ul class="list-unstyled">
+          <li>Tags</li>
+          {{#tags}}
+          <li>{{.}} </li>
+          {{/tags}}
+        </ul>
+      </li>
+      <li>Notes: {{notes}}</li>
+  </ul>
+</section>
+
+<div class="container">
+  <form class="form-group" action="/app/editSnip/{{_id}}" method="post">
+    <label for="">Edit this Snip</label>
+    <input type="hidden" name="userId" value="{{_id}}">
+    <input type="text" name="title" value="" placeholder="Title" class="form-control">
+    <textarea name="body" value="" placeholder="Body" class="form-control"></textarea>
+    <input type="text" name="language" value="" placeholder="Language" class="form-control">
+    <input type="text" name="tags" value="" placeholder="Add Tags (please separate with a comma)" class="form-control">
+    <input type="text" name="notes" value="" placeholder="Add Notes" class="form-control">
+    <input type="submit" name="view" value="Edit!" class="form-control btn btn-primary">
+  </form>
+</div>
+
+{{/snip}}

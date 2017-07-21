@@ -62,8 +62,8 @@ module.exports = {
   },
 
   login: (req, res) => {
-    req.checkBody('username', 'Please pick a username').notEmpty();
-    req.checkBody('password', 'Please pick a password').notEmpty();
+    req.checkBody('username', 'Please enter your username').notEmpty();
+    req.checkBody('password', 'Please enter your password').notEmpty();
 
     req.getValidationResult().then((result) => {
       if (result.isEmpty()) {
@@ -122,7 +122,7 @@ module.exports = {
       , body = req.body.body
       , language = req.body.language
       , tagsString = req.body.tags
-      , tagsArray = tagsString.split(", ")
+      , tagsArray = tagsString.split(",")
       , notes = req.body.notes;
 
     let newSnip = new Snip({
@@ -136,6 +136,43 @@ module.exports = {
 
     newSnip.save().then(() => {
       res.redirect('/app/home');
+    });
+
+  },
+
+  editSnip: (req, res) => {
+    let id = req.params._id;
+    Snip.findById(id).then(snip => {
+      let context = {
+        id: req.session._id,
+        user: req.session.username,
+        name: req.session.firstname,
+        snip: snip
+      };
+
+      res.render('snip', context);
+    });
+  },
+
+  postSnipEdit: (req, res) => {
+    let id = req.params._id
+      , title = req.body.title
+      , body = req.body.body
+      , language = req.body.language
+      , tagsString = req.body.tags
+      , tagsArray = tagsString.split(", ")
+      , notes = req.body.notes;
+
+    Snip.findById(id).then(snip => {
+      snip.title = title;
+      snip.body = body;
+      snip.language = language;
+      snip.tags += (", " + tagsArray);
+      snip.notes += (", " + notes);
+
+      snip.save().then(() => {
+        res.redirect('/app/editSnip/' + id);
+      });
     });
 
   },

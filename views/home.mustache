@@ -8,7 +8,7 @@
   <h3>Your Snips</h3>
   {{#snips}}
   <ul class="list-unstyled">
-    <li><b>{{title}}</b></li>
+    <li><b><a href="/app/editSnip/{{_id}}"> {{title}}</a></b></li>
     <li>{{body}}</li>
     <li>Language: {{language}}</li>
     <li>
@@ -20,6 +20,12 @@
       </ul>
     </li>
     <li>Notes: {{notes}}</li>
+
+    <li>
+      <form class="form-group" action="/app/editSnip/{{_id}}" method="get">
+      <input type="submit" name="edit" value="Edit this Snip" class="form-control btn btn-primary">
+    </form>
+  </li>
   </ul>
   {{/snips}}
   </div>
@@ -39,7 +45,7 @@
     </div>
 
     <div class="form-group">
-      <input type="submit" name="view" value="Create!" class="form-control btn btn-primary like-btn">
+      <input type="submit" name="view" value="Create!" class="form-control btn btn-primary">
     </div>
 
 
