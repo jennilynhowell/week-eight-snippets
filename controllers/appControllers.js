@@ -49,12 +49,11 @@ module.exports = {
 //TODO  mess with errors
       } else {
         errors = result.array();
-        console.log(errors);
-        // message = errors[0].msg;
+        message = errors[0].msg;
 
         let context = {
           username: req.body.username,
-          //message: message
+          message: message
         };
 
         res.render('signup', context);
@@ -105,7 +104,7 @@ module.exports = {
   },
 
   home: (req, res) => {
-    let id = req.session.user;
+    let id = req.session._id;
     Snip.find({userId: id}).then(snips => {
       let context = {
         id: req.session._id,
@@ -115,6 +114,30 @@ module.exports = {
       }
       res.render('home', context);
     });
+  },
+
+  addSnip: (req, res) => {
+    let userId = req.body.userId
+      , title = req.body.title
+      , body = req.body.body
+      , language = req.body.language
+      , tagsString = req.body.tags
+      , tagsArray = tagsString.split(", ")
+      , notes = req.body.notes;
+
+    let newSnip = new Snip({
+      userId: userId,
+      title: title,
+      body: body,
+      language: language,
+      tags: tagsArray,
+      notes: notes
+    });
+
+    newSnip.save().then(() => {
+      res.redirect('/app/home');
+    });
+
   },
 
   logout: (req, res) => {

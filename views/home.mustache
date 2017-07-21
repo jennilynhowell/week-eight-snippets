@@ -5,13 +5,27 @@
 
 
   <div class="container">
-  {{#snips}}
   <h3>Your Snips</h3>
+  {{#snips}}
+  <ul class="list-unstyled">
+    <li><b>{{title}}</b></li>
+    <li>{{body}}</li>
+    <li>Language: {{language}}</li>
+    <li>
+      <ul class="list-unstyled">
+        {{#tags}}
+        <li>Tags</li>
+        <li>{{.}}</li>
+        {{/tags}}
+      </ul>
+    </li>
+    <li>Notes: {{notes}}</li>
+  </ul>
   {{/snips}}
   </div>
 
 
-  <form class="form-group" action="ADDSNIP" method="post">
+  <form class="form-group" action="/app/addsnip" method="post">
     <h3>Create a New Snip</h3>
 
     <div class="form-group">
@@ -20,7 +34,7 @@
       <input type="text" name="title" value="" placeholder="Title" class="form-control">
       <textarea name="body" value="" placeholder="Body" class="form-control"></textarea>
       <input type="text" name="language" value="" placeholder="Language" class="form-control">
-      <input type="text" name="tags" value="" placeholder="Tags" class="form-control">
+      <input type="text" name="tags" value="" placeholder="Tags (please separate with a comma)" class="form-control">
       <input type="text" name="notes" value="" placeholder="Notes" class="form-control">
     </div>
 
