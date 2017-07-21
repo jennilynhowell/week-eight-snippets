@@ -104,12 +104,24 @@ module.exports = {
   },
 
   home: (req, res) => {
-    let id = req.session._id;
+    let id = req.session._id
+      , holding = [];
     Snip.find({userId: id}).then(snips => {
+      for (let i = 0; i < snips.length; i++) {
+          holding.push("Language: " + snips[i].language);
+          for (let j = 0; j < snips[i].tags.length; j++) {
+            holding.push("Tag: " + snips[i].tags[j]);
+          };
+        };
+
+      let languages = Array.from(new Set(holding));
+      languages = languages.sort();
+
       let context = {
         id: req.session._id,
         user: req.session.username,
         name: req.session.firstname,
+        languages: languages,
         snips: snips
       }
       res.render('home', context);
@@ -154,6 +166,50 @@ module.exports = {
     });
   },
 
+  viewBy: (req, res) => {
+    let search = req.body.filter
+      , userId = req.session._id
+      , isLangSearch = false;
+
+    if(search.includes("Language: ")){
+      search = search.slice(10);
+      isLangSearch = true;
+    } else {
+      search = search.slice(5);
+    }
+
+    if(isLangSearch){
+      Snip.find({$and:
+        [{userId: userId},
+        {language: search}]
+      }).then(snips => {
+        let context = {
+          id: req.session._id,
+          user: req.session.username,
+          name: req.session.firstname,
+          snips: snips
+        };
+
+        res.render('snips-filtered', context);
+      });
+    } else {
+      Snip.find({$and:
+        [{userId: userId},
+        {tags: {$in: [search]}}]
+      }).then(snips => {
+        let context = {
+          id: req.session._id,
+          user: req.session.username,
+          name: req.session.firstname,
+          snips: snips
+        };
+
+        res.render('snips-filtered', context);
+      });
+    }
+
+  },
+
   postSnipEdit: (req, res) => {
     let id = req.params._id
       , title = req.body.title
@@ -167,8 +223,10 @@ module.exports = {
       snip.title = title;
       snip.body = body;
       snip.language = language;
-      snip.tags += (", " + tagsArray);
-      snip.notes += (", " + notes);
+      for (let i = 0; i < tagsArray.length; i++) {
+        snip.tags.push(tagsArray[i]);
+      };
+      snip.notes.push(notes);
 
       snip.save().then(() => {
         res.redirect('/app/editSnip/' + id);

@@ -6,6 +6,17 @@
 
   <div class="container">
   <h3>Your Snips</h3>
+  <form class="form-group form-inline" action="/app/snip/viewBy" method="post">
+    <h5>Filter by Tag or Language</h5>
+    <select class="category form-control" name="filter">
+      <option value="">Select</option>
+      {{#languages}}
+      <option value="{{.}}">{{.}}</option>
+      {{/languages}}
+    </select>
+    <input class="form-control btn btn-primary" type="submit" name="submit" value="View">
+  </form>
+
   {{#snips}}
   <ul class="list-unstyled">
     <li><b><a href="/app/editSnip/{{_id}}"> {{title}}</a></b></li>
@@ -13,14 +24,20 @@
     <li>Language: {{language}}</li>
     <li>
       <ul class="list-unstyled">
-        {{#tags}}
         <li>Tags</li>
+        {{#tags}}
         <li>{{.}}</li>
         {{/tags}}
       </ul>
     </li>
-    <li>Notes: {{notes}}</li>
-
+    <li>
+      <ul class="list-unstyled">
+        <li>Notes</li>
+        {{#notes}}
+        <li>{{.}}</li>
+        {{/notes}}
+      </ul>
+    </li>
     <li>
       <form class="form-group" action="/app/editSnip/{{_id}}" method="get">
       <input type="submit" name="edit" value="Edit this Snip" class="form-control btn btn-primary">
