@@ -43,19 +43,25 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-//
-// //require user to be logged in
-// app.use(function(req, res, next){
-//   let pathname = parseurl(req).pathname
-//     , sess = req.session;
-//
-//   if (!sess.user && (!pathname.includes('/user/login'))){
-//     res.redirect('/user/login');
-//   } else {
-//     next();
-//   }
-//
-// });
+
+//require user to be logged in
+
+if (env !== 'test') {
+  app.use(function(req, res, next){
+    let pathname = parseurl(req).pathname
+      , sess = req.session;
+
+    if (!sess.username && (!pathname.includes('/app/user'))){
+      res.redirect('/app/user/login');
+    } else {
+      next();
+    }
+
+  });
+}
+
+
+
 module.exports = app;
 
 routes(app);

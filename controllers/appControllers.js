@@ -31,8 +31,10 @@ module.exports = {
 
         //then create session & move to home page
         newUser.save().then(user => {
+//TODO catch mongo rejection error!
           if (user.err) {
-            let context = {message: "Sorry, somethign went wrong."}
+            console.log(user.err);
+            let context = {message: "Sorry, something went wrong."}
             res.render('signup', context);
           } else {
             req.session._id = user._id;
@@ -44,9 +46,7 @@ module.exports = {
 
         });
 
-
       //if errors, alert user
-//TODO  mess with errors
       } else {
         errors = result.array();
         message = errors[0].msg;
@@ -71,13 +71,17 @@ module.exports = {
           , password = req.body.password;
 
         User.findOne({username: username}).then(user => {
+          if (!user) {
+            res.render('login', {message: 'Something went wrong.'});
+          };
+
           let pwObject = user.password
             , enteredPwObject = createPasswordObject(password, pwObject.salt);
 
-          if (!user || pwObject.hash !== enteredPwObject.hash) {
+          if (pwObject.hash !== enteredPwObject.hash) {
             res.render('login', {message: 'Something went wrong.'});
 
-          //if no database validation error, create session
+          //if no database validation errors, create session
           } else {
             req.session._id = user._id;
             req.session.username = user.username;
@@ -233,6 +237,14 @@ module.exports = {
       });
     });
 
+  },
+
+  deleteSnip: (req, res) => {
+    let id = req.body.id;
+
+    Snip.remove({_id: id}).then(() => {
+      res.redirect('/app/home');
+    });
   },
 
   logout: (req, res) => {

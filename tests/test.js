@@ -5,6 +5,117 @@ const User = require('../models/user');
 const Snip = require('../models/snippet');
 const createPasswordObject = require('../controllers/helpers').createPasswordObject;
 
+describe('APP User endpoint tests', () => {
+  beforeEach((done) => {
+    let userOne = new User({username: 'jlo', firstName: 'Jennilyn', password: createPasswordObject('hello')});
+    let userTwo = new User({username: 'chopper', firstName: 'Luke', password: createPasswordObject('ball')});
+    User.insertMany([userOne, userTwo]).then(done());
+  });
+
+  afterEach((done) => {
+    User.deleteMany({}).then(done());
+  });
+
+  it('can create user at POST /APP/user/signup', (done) => {
+    let createUser = new User({username: 'suzieq', firstName: 'Suzie', password: createPasswordObject('queue')});
+    request(app)
+      .post('/app/user/signup')
+      .send(createUser)
+      .expect(res => {
+        expect(201);
+      }).end(done);
+  });
+
+  it('can log user in at POST /APP/user/login', (done) => {
+    request(app)
+      .post('/app/user/signup')
+      .send({username: 'chopper', password: createPasswordObject('ball')})
+      .expect(res => {
+        expect(201);
+      }).end(done);
+  });
+
+
+});
+
+describe('APP Snip endpoint tests', () => {
+  beforeEach((done) => {
+    let snipOne = new Snip({
+      userId: "54cd6669d3e0fb1b302e55e6",
+      title: 'snipOne',
+      body: '<h1> Hello World </h1>',
+      language: 'HTML',
+      tags: ['HelloWorld', 'HTML'],
+      notes: ['My first HTML snippet', 'How cool is HTML!']
+    });
+    let snipTwo = new Snip({
+      userId: "54cd6669d3e0fb1b302e56f7",
+      title: 'snipTwo',
+      body: 'let cool = true;',
+      language: 'JS',
+      tags: ['JavaScript', 'HelloWorld'],
+      notes: ['My first JS snippet', 'How cool is JavaScript!']
+    });
+    let snipThree = new Snip({
+      userId: "54cd7171d3e0fb1b302e56f7",
+      title: 'oh snip',
+      body: 'const EVERYTHING = require("EVERYTHING");',
+      language: 'JS',
+      tags: ['JavaScript', 'Node'],
+      notes: ['Oh Node', 'Oh, oh Node']
+    });
+    Snip.insertMany([snipOne, snipTwo, snipThree]).then(snips => {
+      done();
+    });
+  });
+
+  afterEach((done) => {
+    Snip.deleteMany({}).then(done());
+  });
+
+  it('can add a snip at POST /APP/addsnip', (done) => {
+    let createSnip = new Snip ({
+      userId: "54cd6669d3e0fb1b302e57g8",
+      title: 'gettin snippy',
+      body: 'let pizza = "delicious";',
+      language: 'JS',
+      tags: ['JavaScript', 'pizza'],
+      notes: ['My second JS snippet']
+    });
+    request(app)
+      .post('/app/addsnip')
+      .send(createSnip)
+      .expect(res => {
+        expect(201);
+      }).end(done);
+  });
+
+  it('can view snips by tag or lang at POST /APP/snip/viewBy', (done) => {
+    request(app)
+      .post('/app/snip/viewBy')
+      .send({userId: "54cd6669d3e0fb1b302e56f7", filter: "Language: JS"})
+      .expect(200)
+      .end(done);
+  });
+
+  it('can delete a snip at POST /APP/snip/deleteSnip', (done) => {
+    let createSnip = new Snip ({
+      userId: "54cd6669d3e0fb1b302e57g8",
+      title: 'gettin snippy',
+      body: 'let pizza = "delicious";',
+      language: 'JS',
+      tags: ['JavaScript', 'pizza'],
+      notes: ['My second JS snippet']
+    });
+    request(app)
+      .post('/app/snip/deleteSnip')
+      .send({id: createSnip._id})
+      .expect(302)
+      .end(done);
+  });
+
+});
+
 describe('API Snip endpoint tests', () => {
   //before & after
   beforeEach((done) => {

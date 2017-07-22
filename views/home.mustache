@@ -17,6 +17,10 @@
     <input class="form-control btn btn-primary" type="submit" name="submit" value="View">
   </form>
 
+  <div>
+    <a href="#createnew" class="form-control btn btn-primary">Create New Snip</a>
+  </div>
+
   {{#snips}}
   <ul class="list-unstyled">
     <li><b><a href="/app/editSnip/{{_id}}"> {{title}}</a></b></li>
@@ -48,7 +52,7 @@
   </div>
 
 
-  <form class="form-group" action="/app/addsnip" method="post">
+  <form class="form-group" action="/app/addsnip" method="post" id="createnew">
     <h3>Create a New Snip</h3>
 
     <div class="form-group">

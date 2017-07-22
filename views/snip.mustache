@@ -3,24 +3,24 @@
   {{#snip}}
   <ul class="list-unstyled">
     <li><h3 class="">{{title}}</h4></li>
-      <li>{{body}}</li>
-      <li>Language: {{language}}</li>
-      <li>
-        <ul class="list-unstyled">
-          <li>Tags</li>
-          {{#tags}}
-          <li>{{.}} </li>
-          {{/tags}}
-        </ul>
-      </li>
-      <li>
-        <ul class="list-unstyled">
-          <li>Notes</li>
-          {{#notes}}
-          <li>{{.}}</li>
-          {{/notes}}
-        </ul>
-      </li>
+    <li>{{body}}</li>
+    <li>Language: {{language}}</li>
+    <li>
+      <ul class="list-unstyled">
+        <li>Tags</li>
+        {{#tags}}
+        <li>{{.}} </li>
+        {{/tags}}
+      </ul>
+    </li>
+    <li>
+      <ul class="list-unstyled">
+        <li>Notes</li>
+        {{#notes}}
+        <li>{{.}}</li>
+        {{/notes}}
+      </ul>
+    </li>
   </ul>
 </section>
 
@@ -35,6 +35,12 @@
     <input type="text" name="notes" value="" placeholder="Add Notes" class="form-control">
     <input type="submit" name="view" value="Edit!" class="form-control btn btn-primary">
   </form>
+
+  <form class="form-group" action="/app/snip/deleteSnip/" method="post">
+    <input type="hidden" name="id" value="{{_id}}">
+    <input type="submit" name="delete" value="Delete this Snip" class="form-control btn btn-primary">
+  </form>
+
 </div>
 
 {{/snip}}

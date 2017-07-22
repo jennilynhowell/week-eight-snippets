@@ -28,6 +28,12 @@
       <input type="submit" name="edit" value="Edit this Snip" class="form-control btn btn-primary">
     </form>
   </li>
+  <li>
+    <form class="form-group" action="/app/snip/deleteSnip/" method="post">
+      <input type="hidden" name="id" value="{{_id}}">
+      <input type="submit" name="delete" value="Delete this Snip" class="form-control btn btn-primary">
+    </form>
+  </li>
   </ul>
   {{/snips}}
 
