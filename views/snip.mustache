@@ -1,21 +1,21 @@
 <section class="container">
   <h3>Edit Your Snip</h3>
   {{#snip}}
-  <ul class="list-unstyled">
-    <li><h3 class="">{{title}}</h4></li>
-    <li>{{body}}</li>
-    <li>Language: {{language}}</li>
+  <ul class="list-unstyled one-snip">
+    <li class="snip-title"><b><a href="/app/editSnip/{{_id}}"> {{title}}</a></b></li>
+    <li class="snip-body">{{body}}</li>
+    <li><b>Language: </b>{{language}}</li>
     <li>
       <ul class="list-unstyled">
-        <li>Tags</li>
+        <li><b>Tags</b></li>
         {{#tags}}
-        <li>{{.}} </li>
+        <li class="tag">{{.}}</li>
         {{/tags}}
       </ul>
     </li>
     <li>
-      <ul class="list-unstyled">
-        <li>Notes</li>
+      <ul class="list-unstyled notes-list">
+        <li><b>Notes</b></li>
         {{#notes}}
         <li>{{.}}</li>
         {{/notes}}
@@ -24,21 +24,34 @@
   </ul>
 </section>
 
-<div class="container">
-  <form class="form-group" action="/app/editSnip/{{_id}}" method="post">
-    <label for="">Edit this Snip</label>
-    <input type="hidden" name="userId" value="{{_id}}">
-    <input type="text" name="title" value="{{title}}" placeholder="Title" class="form-control">
-    <textarea name="body" value="{{body}}" placeholder="Body" class="form-control"></textarea>
-    <input type="text" name="language" value="{{language}}" placeholder="Language" class="form-control">
-    <input type="text" name="tags" value="" placeholder="Add Tags (please separate with a comma)" class="form-control">
-    <input type="text" name="notes" value="" placeholder="Add Notes" class="form-control">
-    <input type="submit" name="view" value="Edit!" class="form-control btn btn-primary">
+<div class="container create-form">
+  <form class="form-group sign-in" action="/app/editSnip/{{_id}}" method="post">
+    <h3>Edit This Snip</h3>
+
+    <div class="form-group create-snip container">
+      <div class="col-md-6 column-one">
+        <input type="hidden" name="userId" value="{{_id}}">
+        <input type="text" name="title" value="{{title}}" placeholder="Title" class="form-control">
+
+        <div class="form-control container textarea-container">
+          <textarea name="body" value="" placeholder="Body" class="form-control snip-text"></textarea>
+        </div>
+
+      </div>
+
+      <div class="col-md-6 column-two">
+        <input type="text" name="language" value="{{language}}" placeholder="Language" class="form-control">
+        <input type="text" name="tags" value="" placeholder="Add Tags (please separate with a comma)" class="form-control">
+        <input type="text" name="notes" value="" placeholder="Add Notes" class="form-control">
+      </div>
+    </div>
+
+    <input type="submit" name="view" id="edit-btn-submit" value="Edit!" class="form-control btn btn-primary">
   </form>
 
-  <form class="form-group" action="/app/snip/deleteSnip/" method="post">
+  <form class="form-group delete-post" action="/app/snip/deleteSnip/" method="post">
     <input type="hidden" name="id" value="{{_id}}">
-    <input type="submit" name="delete" value="Delete this Snip" class="form-control btn btn-primary">
+    <input type="submit" name="delete" value="Delete this Snip" class="form-control btn btn-primary delete-post-btn">
   </form>
 
 </div>

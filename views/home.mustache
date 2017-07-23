@@ -4,9 +4,9 @@
 <section class="container">
 
 
-  <div class="container">
+  <div class="container snip-container">
   <h3>Your Snips</h3>
-  <form class="form-group form-inline" action="/app/snip/viewBy" method="post">
+  <form class="form-group form-inline viewby-filter" action="/app/snip/viewBy" method="post">
     <h5>Filter by Tag or Language</h5>
     <select class="category form-control" name="filter">
       <option value="">Select</option>
@@ -17,8 +17,8 @@
     <input class="form-control btn btn-primary" type="submit" name="submit" value="View">
   </form>
 
-  <div>
-    <a href="#createnew" class="form-control btn btn-primary">Create New Snip</a>
+  <div class="createnew-go">
+    <a href="#createnew" class="form-control btn btn-primary" id="createnew-btn">Create New Snip</a>
   </div>
 
   <div class="snips-list">
@@ -26,7 +26,7 @@
     <ul class="list-unstyled one-snip">
       <li class="snip-title"><b><a href="/app/editSnip/{{_id}}"> {{title}}</a></b></li>
       <li class="snip-body">{{body}}</li>
-      <li>Language: {{language}}</li>
+      <li><b>Language: </b>{{language}}</li>
       <li>
         <ul class="list-unstyled">
           <li><b>Tags</b></li>
@@ -36,7 +36,7 @@
         </ul>
       </li>
       <li>
-        <ul class="list-unstyled">
+        <ul class="list-unstyled notes-list">
           <li><b>Notes</b></li>
           {{#notes}}
           <li>{{.}}</li>
@@ -55,25 +55,32 @@
   </div>
 
 
-  <form class="form-group sign-in" action="/app/addsnip" method="post" id="createnew">
-    <h3>Create a New Snip</h3>
-
-    <div class="form-group">
-      <label for="">My New Snip</label>
-      <input type="hidden" name="userId" value="{{id}}">
-      <input type="text" name="title" value="" placeholder="Title" class="form-control">
-      <textarea name="body" value="" placeholder="Body" class="form-control"></textarea>
-      <input type="text" name="language" value="" placeholder="Language" class="form-control">
-      <input type="text" name="tags" value="" placeholder="Tags (please separate with a comma)" class="form-control">
-      <input type="text" name="notes" value="" placeholder="Notes" class="form-control">
-    </div>
-
-    <div class="form-group">
-      <input type="submit" name="view" value="Create!" class="form-control btn btn-primary">
-    </div>
 
 
-  </form>
+  <div class="create-form">
+    <form class="form-group sign-in" action="/app/addsnip" method="post" id="createnew">
+      <h3>Create a New Snip</h3>
+
+      <div class="form-group create-snip container">
+        <div class="col-md-6 column-one">
+          <input type="hidden" name="userId" value="{{id}}">
+          <input type="text" name="title" value="" placeholder="Title" class="form-control">
+          <div class="form-control container textarea-container">
+            <textarea name="body" value="" placeholder="Body" class="form-control snip-text"></textarea>
+          </div>
+        </div>
+
+        <div class="col-md-6 column-two">
+          <input type="text" name="language" value="" placeholder="Language" class="form-control">
+          <input type="text" name="tags" value="" placeholder="Tags (please separate with a comma)" class="form-control">
+          <input type="text" name="notes" value="" placeholder="Notes" class="form-control">
+        </div>
+
+        <input type="submit" name="view" value="Create!" id="create-btn-submit" class="form-control btn btn-primary">
+
+      </div>
+    </form>
+  </div>
 
 
 </section>

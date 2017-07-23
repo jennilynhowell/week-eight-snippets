@@ -7,8 +7,17 @@ body {
   background-repeat: round;
 }
 
+.home-container {
+  margin-left: 0;
+  padding-left: 0;
+}
+
 a {
   color: #0277bd;
+}
+
+h1, h3 {
+  color: #01579b;
 }
 
 /*layout*/
@@ -20,7 +29,6 @@ a {
 nav {
   width: 90%;
   margin: 0 auto;
-
 }
 
 .navbar-brand .navbar-default {
@@ -29,6 +37,12 @@ nav {
 
 .glyphicon, .logo {
   color: #fff;
+}
+
+.logo {
+  font-family: 'Anonymous Pro', monospace;
+  margin-left: 3px;
+  font-size: 2.5rem;
 }
 
 .navbar-right {
@@ -44,11 +58,7 @@ nav {
 .form-div {
   margin: 0 auto;
   text-align: center;
-  width: 55vw;
-}
-
-.form-div h3 {
-  color: #0277bd;
+  width: 40vw;
 }
 
 .sign-in .form-control {
@@ -61,14 +71,26 @@ nav {
 }
 
 /*home page*/
-.welcome {
-  color: #0277bd;
+.snip-container {
+  padding-left: 0;
+}
+
+.viewby-filter {
+  display: inline-block;
+  width: 29%;
+}
+
+.createnew-go {
+  display: inline-block;
+}
+
+#createnew-btn {
+  width: 12vw;
 }
 
 .snips-list {
   margin-top: 2%;
   display: flex;
-  align-items: flex-start;
   flex-direction: row-reverse;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -84,19 +106,20 @@ nav {
 }
 
 .snip-title {
-  font-size: 1.6rem;
-  margin-bottom: 2%;
+  font-size: 2rem;
+  margin-bottom: 2.5%;
 }
 
 .snip-body {
   min-width: 60%;
   max-width: 90%;
-  padding: 1%;
-  background-color: #b0bec5;
+  padding: 4%;
+  background-color: #cfd8dc;
   border: 0.5px solid #263238;
   font-family: 'Anonymous Pro', monospace;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  margin-top: 4%;
+  margin-bottom: 5%;
+  white-space: pre-wrap;
 }
 
 .one-snip {
@@ -116,4 +139,69 @@ nav {
   border: 0.5px solid #B0BEC5;
   font-style: italic;
   border-radius: 6px;
+}
+
+.notes-list {
+  margin-bottom: 2%;
+}
+
+.create-form {
+  width: 100%;
+  margin: 0 auto;
+  border-top: 1px solid #263238;
+  margin-top: 3%;
+  margin-bottom: 7%;
+  padding-top: 1%;
+}
+
+.create-snip {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.textarea-container {
+  display: inline-block;
+  height: 20vh;
+  padding: 0;
+}
+
+.snip-text {
+  display: inline-block;
+  border: none;
+  box-shadow: none;
+  height: 95%;
+  resize: none;
+}
+
+.create-snip input {
+  display: inline-block;
+  height: 47px;
+}
+
+.column-two input {
+  height: 40px;
+}
+
+#create-btn-submit, #edit-btn-submit {
+  margin: 0 auto;
+  margin-top: 1%;
+  width: 70%;
+  margin-left: 15%;
+  height: 34px;
+}
+
+.delete-post {
+  width: 100%;
+}
+
+.delete-post-btn {
+  background-color: #bf360c;
+  border-color: #bf360c;
+  width: 10vw;
+  float: right;
+  margin-top: 3%;
+}
+
+#delete-filtered {
+  float: none;
 }
