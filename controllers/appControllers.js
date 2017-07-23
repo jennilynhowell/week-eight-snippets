@@ -30,19 +30,18 @@ module.exports = {
           });
 
         //then create session & move to home page
-        newUser.save().then(user => {
-//TODO catch mongo rejection error!
-          if (user.err) {
-            console.log(user.err);
-            let context = {message: "Sorry, something went wrong."}
+        newUser.save(err => {
+          if (err) {
+            let context = {message: "Sorry, something went wrong. Try a different username."}
             res.render('signup', context);
-          } else {
-            req.session._id = user._id;
-            req.session.username = user.username;
-            req.session.firstname = user.firstName;
-
-            res.redirect('/app/home');
+            return;
           }
+        }).then(user => {
+          req.session._id = user._id;
+          req.session.username = user.username;
+          req.session.firstname = user.firstName;
+
+          res.redirect('/app/home');
 
         });
 
