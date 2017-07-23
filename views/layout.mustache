@@ -6,15 +6,16 @@
     <title>CodeTrapper</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|PT+Sans" rel="stylesheet">
   </head>
 
   <body class="container">
     <header class="navbar navbar-default navbar-fixed-top">
       <nav>
         <ul class="list-inline list-unstyled">
-          <li class="navbar-brand"><span class="glyphicon glyphicon-lock"></span><b class="popquiz">CodeTrapper</b></li>
+          <li class="navbar-brand"><span class="glyphicon glyphicon-lock"></span><b class="logo">CodeTrapper</b></li>
           {{#user}}
-          <li class="logout navbar-right">Logged in as {{user}} | <a href="/app/home">Home | </a> <a href="/app/user/logout">Log Out</a></li>
+          <li class="logout navbar-right">Logged in as {{user}} | <a href="/app/home">Home  </a> | <a href="/app/user/logout">Log Out</a></li>
           {{/user}}
 
           {{^user}}

@@ -21,38 +21,41 @@
     <a href="#createnew" class="form-control btn btn-primary">Create New Snip</a>
   </div>
 
-  {{#snips}}
-  <ul class="list-unstyled">
-    <li><b><a href="/app/editSnip/{{_id}}"> {{title}}</a></b></li>
-    <li>{{body}}</li>
-    <li>Language: {{language}}</li>
-    <li>
-      <ul class="list-unstyled">
-        <li>Tags</li>
-        {{#tags}}
-        <li>{{.}}</li>
-        {{/tags}}
-      </ul>
+  <div class="snips-list">
+    {{#snips}}
+    <ul class="list-unstyled one-snip">
+      <li class="snip-title"><b><a href="/app/editSnip/{{_id}}"> {{title}}</a></b></li>
+      <li class="snip-body">{{body}}</li>
+      <li>Language: {{language}}</li>
+      <li>
+        <ul class="list-unstyled">
+          <li><b>Tags</b></li>
+          {{#tags}}
+          <li class="tag">{{.}}</li>
+          {{/tags}}
+        </ul>
+      </li>
+      <li>
+        <ul class="list-unstyled">
+          <li><b>Notes</b></li>
+          {{#notes}}
+          <li>{{.}}</li>
+          {{/notes}}
+        </ul>
+      </li>
+      <li>
+        <form class="form-group" action="/app/editSnip/{{_id}}" method="get">
+        <input type="submit" name="edit" value="Edit this Snip" class="form-control btn btn-primary edit-btn">
+      </form>
     </li>
-    <li>
-      <ul class="list-unstyled">
-        <li>Notes</li>
-        {{#notes}}
-        <li>{{.}}</li>
-        {{/notes}}
-      </ul>
-    </li>
-    <li>
-      <form class="form-group" action="/app/editSnip/{{_id}}" method="get">
-      <input type="submit" name="edit" value="Edit this Snip" class="form-control btn btn-primary">
-    </form>
-  </li>
-  </ul>
-  {{/snips}}
+    </ul>
+    {{/snips}}
+  </div>
+
   </div>
 
 
-  <form class="form-group" action="/app/addsnip" method="post" id="createnew">
+  <form class="form-group sign-in" action="/app/addsnip" method="post" id="createnew">
     <h3>Create a New Snip</h3>
 
     <div class="form-group">

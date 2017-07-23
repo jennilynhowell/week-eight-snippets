@@ -45,7 +45,6 @@ app.use(session({
 }));
 
 //require user to be logged in
-
 if (env !== 'test') {
   app.use(function(req, res, next){
     let pathname = parseurl(req).pathname
@@ -59,8 +58,6 @@ if (env !== 'test') {
 
   });
 }
-
-
 
 module.exports = app;
 
