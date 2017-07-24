@@ -19,7 +19,7 @@ let mongoUrl;
 const env = process.env.NODE_ENV || 'development';
 
 if(env === 'production') {
-  mongoUrl = processenv.MONGODB_URI;
+  mongoUrl = process.env.MONGODB_URI;
 } else {
   mongoUrl = require('./config.json')[env].mongoUrl;
 }
