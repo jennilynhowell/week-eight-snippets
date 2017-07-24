@@ -9,23 +9,40 @@
     <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|PT+Sans" rel="stylesheet">
   </head>
 
-  <body class="container">
-    <header class="navbar navbar-default navbar-fixed-top">
-      <nav>
-        <ul class="list-inline list-unstyled">
-          <li class="navbar-brand"><span class="glyphicon glyphicon-lock"></span><b class="logo">CodeTrapper</b></li>
-          {{#user}}
-          <li class="logout navbar-right">Logged in as {{user}} | <a href="/app/home">Home  </a> | <a href="/app/user/logout">Log Out</a></li>
-          {{/user}}
+  <body>
+    <section class="container body-section">
+      <header class="navbar navbar-default navbar-fixed-top">
+        <nav>
+          <ul class="list-inline list-unstyled">
+            <li class="navbar-brand"><span class="glyphicon glyphicon-lock"></span><b class="logo">CodeTrapper</b></li>
+            {{#user}}
+            <li class="logout navbar-right">Logged in as {{user}} | <a href="/app/home">Home  </a> | <a href="/app/user/logout">Log Out</a></li>
+            {{/user}}
 
-          {{^user}}
-          <li class="logout navbar-right"><a href="/app/user/login">Log In</a></li>
-          {{/user}}
-          <li></li>
-        </ul>
-      </nav>
-    </header>
+            {{^user}}
+            <li class="logout navbar-right"><a href="/app/user/login">Log In</a></li>
+            {{/user}}
+            <li></li>
+          </ul>
+        </nav>
+      </header>
+
+      {{{yield}}}
+
+    </section>
+
+    <footer class="">
+      <p class="footer-text">A student project by Jennilyn Howell. July 2017</p>
+    </footer>
+
+
+
+
   </body>
 
-  {{{yield}}}
+
+
+
+
+
 </html>

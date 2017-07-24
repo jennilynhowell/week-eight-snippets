@@ -1,10 +1,15 @@
 /*background source: https://www.toptal.com/designers/subtlepatterns/page/2/?s=code*/
 
 body {
+  margin-bottom: 70px;
   padding-top: 80px;
   font-family: 'PT Sans', sans-serif;
   background-image: url('./images/old_mathematics.png');
   background-repeat: round;
+}
+
+.body-section {
+  min-height: 65vh;
 }
 
 .home-container {
@@ -54,7 +59,24 @@ nav {
   color: #fff;
 }
 
-/*sign-in/sign-up*/
+footer {
+  position: relative;
+  bottom: -70px;
+  height: 35px;
+  margin-top: 20px;
+  width: 100%;
+  background-color: #01579b;
+}
+
+.footer-text {
+  text-align: right;
+  padding-top: 8px;
+  margin-right: 10px;
+  font-family: 'Anonymous Pro', monospace;
+  color: #fff;
+}
+
+/*main pages*/
 .form-div {
   margin: 0 auto;
   text-align: center;
